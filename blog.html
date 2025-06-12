@@ -5,34 +5,376 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RaízZero - Blog</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     body {
+      margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4fdf6;
-      color: #2d4030;
+      background-image: url('img/Nature.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #ffffff;
+      min-height: 100vh;
     }
+
     header {
-      background-color: #2d6a4f;
+      background-color: rgba(29, 53, 43, 0.9);
     }
+
     nav a {
       color: #ffffff !important;
-      font-weight: 500;
+      font-weight: bold;
     }
+
     nav a:hover {
       text-decoration: underline;
     }
+
+    /* Contenedor principal */
+    .blog-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 1rem;
+      padding: 2rem;
+    }
+
+    .blog-header h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #95d5b2, #74c69d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .blog-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 0;
+    }
+
+    /* Galería Hero */
+    .hero-carousel {
+      margin-bottom: 4rem;
+      position: relative;
+      height: 60vh;
+      border-radius: 2rem;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hero-slide.next {
+      opacity: 0;
+      transform: scale(1.1);
+    }
+
+    .hero-content {
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 1rem;
+      padding: 3rem;
+      text-align: center;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translateY(20px);
+      animation: slideUp 0.8s ease-out forwards;
+    }
+
+    @keyframes slideUp {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .hero-content h3 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #95d5b2;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .hero-content .btn {
+      background: linear-gradient(45deg, #95d5b2, #74c69d);
+      border: none;
+      color: #1b4332;
+      font-weight: bold;
+      padding: 0.8rem 2rem;
+      border-radius: 2rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-content .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(149, 213, 178, 0.4);
+      color: white;
+    }
+
+    /* Controles del carrusel hero */
+    .hero-controls {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1rem;
+    }
+
+    .hero-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero-dot.active {
+      background: #95d5b2;
+      transform: scale(1.3);
+    }
+
+    /* Sección de artículos */
+    .articles-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 3rem;
+      color: #95d5b2;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(45deg, #95d5b2, #74c69d);
+      border-radius: 2px;
+    }
+
+    /* Carrusel de artículos infinito */
+    .articles-carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      padding: 2rem 0;
+    }
+
+    .articles-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      gap: 2rem;
+    }
+
+    .article-card {
+      min-width: 350px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 1rem;
+      overflow: hidden;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .article-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(149, 213, 178, 0.2);
+      border-color: #95d5b2;
+    }
+
+    .article-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .article-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(149, 213, 178, 0.1), rgba(116, 198, 157, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .article-card:hover .article-image::before {
+      opacity: 1;
+    }
+
+    .article-content {
+      padding: 1.5rem;
+    }
+
+    .article-date {
+      color: #95d5b2;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .article-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+
+    .article-excerpt {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .article-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(149, 213, 178, 0.2);
+      color: #95d5b2;
+      padding: 0.3rem 0.8rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: bold;
+      border: 1px solid rgba(149, 213, 178, 0.3);
+    }
+
+    /* Controles del carrusel de artículos */
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+      pointer-events: none;
+    }
+
+    .carousel-btn {
+      background: rgba(149, 213, 178, 0.2);
+      border: 2px solid #95d5b2;
+      color: #95d5b2;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+      pointer-events: auto;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .carousel-btn:hover {
+      background: #95d5b2;
+      color: #1b4332;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(149, 213, 178, 0.4);
+    }
+
+    /* Footer */
     footer {
-      background-color: #1b4332;
-    }
-    .carousel-item img {
-      height: 400px;
-      object-fit: cover;
-      border-radius: 1rem;
-    }
-    .carousel-caption {
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 1rem;
+      background-color: rgba(29, 53, 43, 0.9);
+      color: #fff;
+      text-align: center;
       padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    /* Animaciones */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .blog-container {
+        padding: 1rem;
+      }
+      
+      .hero-carousel {
+        height: 50vh;
+      }
+      
+      .hero-content {
+        padding: 2rem;
+      }
+      
+      .hero-content h3 {
+        font-size: 2rem;
+      }
+      
+      .article-card {
+        min-width: 300px;
+      }
     }
   </style>
 </head>
@@ -45,52 +387,251 @@
         <a href="calculadora.html" class="me-3">Calculadora</a>
         <a href="blog.html" class="me-3">Blog</a>
         <a href="recomendaciones.html" class="me-3">Recomendaciones</a>
-        <a href="login.html">Login</a>
+        <a href="comunidad.html" class="me-3" title="Comunidad">
+          <i class="fas fa-users"></i>
+        </a>
+        <a href="login.html" title="Iniciar Sesión">
+          <i class="fas fa-user"></i>
+        </a>
       </nav>
     </div>
   </header>
 
-  <main class="container my-5">
-    <h2 class="mb-4 text-center">Últimos artículos del blog</h2>
-    <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="img/reciclaje.jpg" class="d-block w-100" alt="Reciclaje">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Reciclar: un acto de amor por la Tierra</h5>
-            <p>Descubre cómo separar residuos puede tener un gran impacto ambiental.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="img/huella.jpg" class="d-block w-100" alt="Huella de carbono">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>¿Qué es la huella de carbono?</h5>
-            <p>Conoce qué significa este término y por qué debemos reducirla.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="img/plantar.jpg" class="d-block w-100" alt="Plantar árboles">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Planta un árbol, cambia el mundo</h5>
-            <p>Descubre cómo un pequeño gesto puede ayudar a nuestro planeta.</p>
-          </div>
+  <main class="blog-container">
+    <div class="blog-header animate-in">
+      <h2>Explora Nuestro Contenido</h2>
+      <p>Descubre las últimas tendencias en sostenibilidad, consejos ecológicos y historias inspiradoras para un futuro más verde</p>
+    </div>
+
+    <!-- Galería Hero -->
+    <div class="hero-carousel">
+      <div class="hero-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop')">
+        <div class="hero-content">
+          <h3>Montañas Majestuosas</h3>
+          <p>La belleza natural que debemos proteger para las futuras generaciones en un mundo cada vez más conectado.</p>
+          <button class="btn">Explorar</button>
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#blogCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Anterior</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#blogCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Siguiente</span>
-      </button>
+      <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&h=600&fit=crop')">
+        <div class="hero-content">
+          <h3>Bosques Primordiales</h3>
+          <p>Los pulmones del planeta que purifican nuestro aire y agua, creando un equilibrio perfecto con la naturaleza.</p>
+          <button class="btn">Descubrir</button>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200&h=600&fit=crop')">
+        <div class="hero-content">
+          <h3>Océanos Infinitos</h3>
+          <p>Ecosistemas marinos vitales para el equilibrio de nuestro planeta y la supervivencia de todas las especies.</p>
+          <button class="btn">Sumergirse</button>
+        </div>
+      </div>
+      <div class="hero-controls">
+        <div class="hero-dot active" data-slide="0"></div>
+        <div class="hero-dot" data-slide="1"></div>
+        <div class="hero-dot" data-slide="2"></div>
+      </div>
     </div>
+
+    <!-- Sección de Artículos -->
+    <section class="articles-section animate-in">
+      <h3 class="section-title">Artículos Destacados</h3>
+      <div class="articles-carousel">
+        <div class="articles-track" id="articlesTrack">
+          <!-- Los artículos se duplicarán aquí por JavaScript para el scroll infinito -->
+        </div>
+        
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevBtn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="carousel-btn" id="nextBtn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="text-white text-center py-3">
+  <footer>
     © 2025 RaízZero. Todos los derechos reservados.
   </footer>
 
+  <script>
+    // Datos de los artículos
+    const articlesData = [
+      {
+        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
+        date: '15 Junio 2025',
+        title: '10 Consejos para Reducir tu Huella de Carbono',
+        excerpt: 'Descubre estrategias prácticas y efectivas para minimizar tu impacto ambiental en la vida cotidiana.',
+        tags: ['Sostenibilidad', 'Tips']
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=400&h=250&fit=crop',
+        date: '12 Junio 2025',
+        title: 'El Futuro de las Energías Renovables',
+        excerpt: 'Análisis de las tecnologías emergentes que están revolucionando el sector energético mundial.',
+        tags: ['Energía', 'Futuro']
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1574263867128-a3e2d2f44239?w=400&h=250&fit=crop',
+        date: '10 Junio 2025',
+        title: 'Jardines Urbanos: Verde en la Ciudad',
+        excerpt: 'Cómo crear espacios verdes en entornos urbanos y su impacto positivo en la calidad de vida.',
+        tags: ['Urbano', 'Jardines']
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1569163139394-de4e4f43e4e5?w=400&h=250&fit=crop',
+        date: '8 Junio 2025',
+        title: 'Reciclaje Inteligente',
+        excerpt: 'Nuevas tecnologías que están transformando la gestión de residuos y el reciclaje global.',
+        tags: ['Reciclaje', 'Tecnología']
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=400&h=250&fit=crop',
+        date: '5 Junio 2025',
+        title: 'Conservación Marina',
+        excerpt: 'Iniciativas globales para proteger nuestros océanos y la vida marina que depende de ellos.',
+        tags: ['Océanos', 'Conservación']
+      }
+    ];
+
+    // Crear HTML para una tarjeta de artículo
+    function createArticleCard(article) {
+      return `
+        <div class="article-card">
+          <div class="article-image" style="background-image: url('${article.image}')"></div>
+          <div class="article-content">
+            <div class="article-date">${article.date}</div>
+            <h4 class="article-title">${article.title}</h4>
+            <p class="article-excerpt">${article.excerpt}</p>
+            <div class="article-tags">
+              ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Inicializar el carrusel infinito
+    function initInfiniteCarousel() {
+      const track = document.getElementById('articlesTrack');
+      
+      // Crear múltiples copias de los artículos para el efecto infinito
+      const repeats = 5; // Número de veces que se repiten los artículos
+      let articlesHTML = '';
+      
+      for (let i = 0; i < repeats; i++) {
+        articlesData.forEach(article => {
+          articlesHTML += createArticleCard(article);
+        });
+      }
+      
+      track.innerHTML = articlesHTML;
+      
+      // Variables para el carrusel
+      let currentPosition = 0;
+      const cardWidth = 370; // 350px + 20px gap
+      const totalCards = articlesData.length * repeats;
+      const visibleCards = Math.floor(window.innerWidth / cardWidth);
+      
+      // Función para mover el carrusel
+      function moveCarousel(direction) {
+        const maxPosition = -(cardWidth * (totalCards - visibleCards));
+        
+        if (direction === 'next') {
+          currentPosition -= cardWidth;
+          if (currentPosition < maxPosition) {
+            // Resetear al inicio cuando llegue al final
+            currentPosition = 0;
+          }
+        } else {
+          currentPosition += cardWidth;
+          if (currentPosition > 0) {
+            // Ir al final cuando esté al principio
+            currentPosition = maxPosition;
+          }
+        }
+        
+        track.style.transform = `translateX(${currentPosition}px)`;
+      }
+      
+      // Event listeners para los botones
+      document.getElementById('nextBtn').addEventListener('click', () => {
+        moveCarousel('next');
+      });
+      
+      document.getElementById('prevBtn').addEventListener('click', () => {
+        moveCarousel('prev');
+      });
+      
+      // Auto-scroll infinito
+      setInterval(() => {
+        moveCarousel('next');
+      }, 3000);
+    }
+
+    // Carrusel Hero
+    let currentHeroSlide = 0;
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const heroDots = document.querySelectorAll('.hero-dot');
+    
+    function showHeroSlide(index) {
+      heroSlides.forEach((slide, i) => {
+        slide.classList.remove('active', 'next');
+        if (i === index) {
+          slide.classList.add('active');
+        } else if (i === (index + 1) % heroSlides.length) {
+          slide.classList.add('next');
+        }
+      });
+      
+      heroDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+    
+    function nextHeroSlide() {
+      currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
+      showHeroSlide(currentHeroSlide);
+    }
+    
+    // Auto-play hero carousel
+    setInterval(nextHeroSlide, 5000);
+    
+    // Hero dots click handlers
+    heroDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentHeroSlide = index;
+        showHeroSlide(currentHeroSlide);
+      });
+    });
+    
+    // Animaciones de entrada
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.animate-in').forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', () => {
+      initInfiniteCarousel();
+    });
+  </script>
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

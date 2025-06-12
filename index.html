@@ -7,36 +7,73 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
+      margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4fdf6;
-      color: #2d4030;
+      background-image: url('img/Nature.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #ffffff;
     }
+
     header {
-      background-color: #2d6a4f;
+      background-color: rgba(29, 53, 43, 0.9);
     }
-    header h1 {
-      font-weight: bold;
-    }
+
     nav a {
       color: #ffffff !important;
-      font-weight: 500;
+      font-weight: bold;
     }
+
     nav a:hover {
       text-decoration: underline;
     }
+
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 1rem;
+      max-width: 700px;
+      margin: 3rem auto;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: bold;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-calculate {
+      background-color: #95d5b2;
+      border: none;
+      color: #1b4332;
+      font-weight: bold;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+    }
+
+    .btn-calculate:hover {
+      background-color: #74c69d;
+      color: white;
+    }
+
     footer {
-      background-color: #1b4332;
-    }
-    .hero-img, .page-img {
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .btn-success {
-      background-color: #40916c;
-      border-color: #40916c;
-    }
-    .btn-success:hover {
-      background-color: #1b4332;
+      background-color: rgba(29, 53, 43, 0.9);
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
     }
   </style>
 </head>
@@ -54,21 +91,16 @@
     </div>
   </header>
 
-  <main class="container my-5">
-    <div class="row align-items-center">
-      <div class="col-md-6">
-        <h2 class="mb-4">Bienvenido a RaízZero</h2>
-        <p>Tu plataforma para medir tu huella de carbono, aprender sobre sostenibilidad y actuar por el planeta desde hoy.</p>
-        <a href="calculadora.html" class="btn btn-success mt-3">Comienza a calcular</a>
-      </div>
-      <div class="col-md-6">
-        <img src="img/portada.jpg" alt="Imagen ecológica" class="img-fluid hero-img">
-      </div>
-    </div>
-  </main>
+  <section class="hero text-white">
+    <h1>Bienvenido a RaízZero</h1>
+    <p>Tu plataforma para reducir la huella de carbono, aprender sobre sostenibilidad y actuar por el planeta desde hoy.</p>
+    <a href="calculadora.html" class="btn btn-calculate">Comienza a calcular</a>
+  </section>
 
-  <footer class="text-white text-center py-3">
+  <footer>
     © 2025 RaízZero. Todos los derechos reservados.
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

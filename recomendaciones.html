@@ -5,33 +5,440 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RaízZero - Recomendaciones</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('img/Nature.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: rgba(29, 53, 43, 0.9);
+    }
+
+    nav a {
+      color: #ffffff !important;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .main-content {
+      padding: 2rem 0;
+    }
+
+    .page-title {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 2rem;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .page-title h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .page-title p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .category-section {
+      background-color: rgba(29, 53, 43, 0.9);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .category-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #95d5b2;
+    }
+
+    .category-title i {
+      font-size: 1.8rem;
+      color: #95d5b2;
+      margin-right: 1rem;
+    }
+
+    .category-title h2 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .recommendation-card {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 0.8rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #95d5b2;
+      transition: all 0.3s ease;
+    }
+
+    .recommendation-card:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .recommendation-card h3 {
+      color: #95d5b2;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .recommendation-card p {
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .impact-badge {
+      display: inline-block;
+      background-color: #95d5b2;
+      color: #1b4332;
+      padding: 0.3rem 0.8rem;
+      border-radius: 1rem;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    .impact-high {
+      background-color: #52b788;
+    }
+
+    .impact-medium {
+      background-color: #95d5b2;
+    }
+
+    .impact-low {
+      background-color: #b7e4c7;
+    }
+
+    .quick-tips {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .quick-tips h2 {
+      color: #95d5b2;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .tip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .tip-item {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .tip-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tip-item i {
+      font-size: 2rem;
+      color: #95d5b2;
+      margin-bottom: 0.5rem;
+    }
+
+    .action-button {
+      background-color: #95d5b2;
+      border: none;
+      color: #1b4332;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .action-button:hover {
+      background-color: #74c69d;
+      color: white;
+      text-decoration: none;
+    }
+
+    footer {
+      background-color: rgba(29, 53, 43, 0.9);
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .page-title h1 {
+        font-size: 2rem;
+      }
+      
+      .category-title h2 {
+        font-size: 1.5rem;
+      }
+      
+      .recommendation-card {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="bg-success text-white p-3">
+  <header class="text-white py-3">
     <div class="container d-flex justify-content-between align-items-center">
       <h1 class="h3 m-0">RaízZero</h1>
       <nav>
-        <a href="index.html" class="text-white me-3">Inicio</a>
-        <a href="calculadora.html" class="text-white me-3">Calculadora</a>
-        <a href="blog.html" class="text-white me-3">Blog</a>
-        <a href="recomendaciones.html" class="text-white me-3">Recomendaciones</a>
-        <a href="login.html" class="text-white">Login</a>
+        <a href="index.html" class="me-3">Inicio</a>
+        <a href="calculadora.html" class="me-3">Calculadora</a>
+        <a href="blog.html" class="me-3">Blog</a>
+        <a href="recomendaciones.html" class="me-3">Recomendaciones</a>
+        <a href="comunidad.html" class="me-3" title="Comunidad">
+          <i class="fas fa-users"></i>
+        </a>
+        <a href="login.html" title="Iniciar Sesión">
+          <i class="fas fa-user"></i>
+        </a>
       </nav>
     </div>
   </header>
 
-  <main class="container my-5">
-    <h2>Recomendaciones ecológicas</h2>
-    <ul class="list-group">
-      <li class="list-group-item">Apaga los dispositivos que no estés usando.</li>
-      <li class="list-group-item">Usa bicicleta o transporte público.</li>
-      <li class="list-group-item">Reduce, reutiliza y recicla.</li>
-      <li class="list-group-item">Consume productos locales y de temporada.</li>
-    </ul>
+  <main class="main-content">
+    <div class="container">
+      <div class="page-title">
+        <h1>Recomendaciones Personalizadas</h1>
+        <p>Descubre acciones concretas para reducir tu huella de carbono y vivir de manera más sostenible</p>
+      </div>
+
+      <!-- Consejos Rápidos -->
+      <div class="quick-tips">
+        <h2><i class="fas fa-lightbulb me-2"></i>Consejos Rápidos del Día</h2>
+        <div class="tip-grid">
+          <div class="tip-item">
+            <i class="fas fa-plug"></i>
+            <h5>Desconecta aparatos</h5>
+            <p>Ahorra hasta 10% en tu factura eléctrica</p>
+          </div>
+          <div class="tip-item">
+            <i class="fas fa-bicycle"></i>
+            <h5>Usa la bici</h5>
+            <p>Reduce 2.6 kg CO₂ por cada 10 km</p>
+          </div>
+          <div class="tip-item">
+            <i class="fas fa-recycle"></i>
+            <h5>Recicla correctamente</h5>
+            <p>Cada tonelada reciclada ahorra 1 tonelada CO₂</p>
+          </div>
+          <div class="tip-item">
+            <i class="fas fa-tint"></i>
+            <h5>Duchas más cortas</h5>
+            <p>5 minutos menos = 350 kg CO₂/año</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transporte -->
+      <div class="category-section">
+        <div class="category-title">
+          <i class="fas fa-car"></i>
+          <h2>Transporte Sostenible</h2>
+        </div>
+        
+        <div class="recommendation-card">
+          <h3>Opta por el Transporte Público</h3>
+          <p>Usar transporte público puede reducir tus emisiones de CO₂ hasta en un 45%. Un autobús reemplaza hasta 40 automóviles.</p>
+          <span class="impact-badge impact-high">Alto Impacto</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Ver rutas cercanas</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Camina o Usa Bicicleta</h3>
+          <p>Para distancias menores a 5 km, caminar o usar bicicleta reduce emisiones a cero y mejora tu salud.</p>
+          <span class="impact-badge impact-high">Alto Impacto</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Mapa de ciclorrutas</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Comparte Vehículo (Carpooling)</h3>
+          <p>Compartir viajes reduce las emisiones per cápita hasta en un 75% y los costos de combustible.</p>
+          <span class="impact-badge impact-medium">Impacto Medio</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Encontrar compañeros</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Energía -->
+      <div class="category-section">
+        <div class="category-title">
+          <i class="fas fa-bolt"></i>
+          <h2>Eficiencia Energética</h2>
+        </div>
+        
+        <div class="recommendation-card">
+          <h3>Cambia a LED</h3>
+          <p>Las bombillas LED consumen 80% menos energía y duran 25 veces más. Ahorra $75 USD anuales.</p>
+          <span class="impact-badge impact-medium">Impacto Medio</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Calculadora de ahorro</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Optimiza tu Termostato</h3>
+          <p>Ajustar la temperatura 2°C reduce el consumo energético entre 10-20%. Programa para usar solo cuando sea necesario.</p>
+          <span class="impact-badge impact-high">Alto Impacto</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Guía de configuración</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Desconecta Aparatos en Standby</h3>
+          <p>Los dispositivos en standby consumen hasta 10% de la electricidad del hogar. Ahorra $100 USD anuales.</p>
+          <span class="impact-badge impact-low">Impacto Bajo</span>
+        </div>
+      </div>
+
+      <!-- Alimentación -->
+      <div class="category-section">
+        <div class="category-title">
+          <i class="fas fa-leaf"></i>
+          <h2>Alimentación Consciente</h2>
+        </div>
+        
+        <div class="recommendation-card">
+          <h3>Reduce el Consumo de Carne</h3>
+          <p>Un día sin carne a la semana puede ahorrar 1,900 libras de CO₂ al año. Prueba proteínas vegetales como lentejas, quinoa y tofu que son nutritivas y deliciosas.</p>
+          <span class="impact-badge impact-high">Alto Impacto</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Recetas vegetarianas</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Compra Local y de Temporada</h3>
+          <p>Los alimentos locales reducen las emisiones de transporte hasta en 90%. Además, los productos de temporada son más frescos, nutritivos y económicos.</p>
+          <span class="impact-badge impact-medium">Impacto Medio</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Calendario de temporada</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Reduce el Desperdicio de Comida</h3>
+          <p>Un tercio de los alimentos se desperdicia globalmente. Planificar comidas, almacenar correctamente y compostar puede reducir tu huella alimentaria en 25%.</p>
+          <span class="impact-badge impact-medium">Impacto Medio</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Guía anti-desperdicio</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consumo -->
+      <div class="category-section">
+        <div class="category-title">
+          <i class="fas fa-shopping-cart"></i>
+          <h2>Consumo Responsable</h2>
+        </div>
+        
+        <div class="recommendation-card">
+          <h3>Practica las 3 R's</h3>
+          <p>Reducir, Reutilizar y Reciclar en ese orden de prioridad. Antes de comprar algo nuevo, pregúntate si realmente lo necesitas o si puedes reparar lo que ya tienes.</p>
+          <span class="impact-badge impact-high">Alto Impacto</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Centros de reparación</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Compra Productos Duraderos</h3>
+          <p>Invertir en productos de calidad reduce el consumo a largo plazo. Un electrodoméstico eficiente puede durar 15-20 años versus 5-7 años de uno económico.</p>
+          <span class="impact-badge impact-medium">Impacto Medio</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Guía de compra sostenible</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Usa Bolsas Reutilizables</h3>
+          <p>Una bolsa reutilizable puede reemplazar más de 1,000 bolsas plásticas durante su vida útil. Mantén siempre una en tu auto o mochila.</p>
+          <span class="impact-badge impact-low">Impacto Bajo</span>
+        </div>
+      </div>
+
+      <!-- Hogar -->
+      <div class="category-section">
+        <div class="category-title">
+          <i class="fas fa-home"></i>
+          <h2>Hogar Eco-Amigable</h2>
+        </div>
+        
+        <div class="recommendation-card">
+          <h3>Mejora el Aislamiento</h3>
+          <p>Un buen aislamiento puede reducir el consumo energético hasta 40%. Revisa ventanas, puertas y techos. Pequeñas mejoras pueden generar grandes ahorros.</p>
+          <span class="impact-badge impact-high">Alto Impacto</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Auditoría energética</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Instala un Huerto Urbano</h3>
+          <p>Cultivar tus propios alimentos reduce emisiones de transporte y empaque. Hierbas aromáticas y vegetales de hoja son perfectos para principiantes.</p>
+          <span class="impact-badge impact-medium">Impacto Medio</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Guía de huerto urbano</a>
+          </div>
+        </div>
+
+        <div class="recommendation-card">
+          <h3>Usa Productos de Limpieza Ecológicos</h3>
+          <p>Los productos naturales como vinagre, bicarbonato y limón son efectivos, económicos y no contaminan el agua. Además, mejoran la calidad del aire interior.</p>
+          <span class="impact-badge impact-low">Impacto Bajo</span>
+          <div class="mt-2">
+            <a href="#" class="action-button">Recetas de limpieza natural</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <footer class="bg-dark text-white text-center py-3">
+  <footer>
     © 2025 RaízZero. Todos los derechos reservados.
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

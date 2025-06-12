@@ -5,40 +5,244 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RaízZero - Calculadora</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     body {
+      margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4fdf6;
-      color: #2d4030;
+      background-image: url('img/Nature.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #ffffff;
+      min-height: 100vh;
     }
+
     header {
-      background-color: #2d6a4f;
+      background-color: rgba(29, 53, 43, 0.9);
     }
+
     nav a {
       color: #ffffff !important;
-      font-weight: 500;
+      font-weight: bold;
     }
+
     nav a:hover {
       text-decoration: underline;
     }
-    footer {
-      background-color: #1b4332;
+
+    /* Contenedor principal de la calculadora */
+    .calculator-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
     }
-    .form-control {
-      border-radius: 0.5rem;
-    }
-    .btn-success {
-      background-color: #40916c;
-      border-color: #40916c;
-    }
-    .btn-success:hover {
-      background-color: #1b4332;
-    }
-    .result-box {
-      background: #e9f5ec;
-      padding: 1rem;
+
+    .calculator-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      background-color: rgba(0, 0, 0, 0.5);
       border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+
+    .calculator-header h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .calculator-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 0;
+    }
+
+    /* Sección del formulario siguiendo el estilo del index */
+    .form-section {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 1rem;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Grupos de campos */
+    .input-group-custom {
+      margin-bottom: 2rem;
+    }
+
+    .input-label {
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+    }
+
+    .input-label i {
+      color: #95d5b2;
+      margin-right: 0.5rem;
+      width: 20px;
+    }
+
+    /* Campos de entrada */
+    .form-control-custom {
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      transition: all 0.3s ease;
+    }
+
+    /* Ocultar las flechitas de los inputs number */
+    .form-control-custom::-webkit-outer-spin-button,
+    .form-control-custom::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .form-control-custom[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    .form-control-custom:focus {
+      border-color: #95d5b2;
+      box-shadow: 0 0 0 0.2rem rgba(149, 213, 178, 0.25);
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .form-control-custom::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .input-unit {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #95d5b2;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    /* Botón principal siguiendo el estilo del index */
+    .btn-calculate {
+      background-color: #95d5b2;
+      border: none;
+      color: #1b4332;
+      font-weight: bold;
+      padding: 1rem 3rem;
+      border-radius: 0.5rem;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-calculate:hover {
+      background-color: #74c69d;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(149, 213, 178, 0.3);
+    }
+
+    /* Resultado */
+    .resultado-container {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 2px solid #95d5b2;
+      border-radius: 1rem;
+      padding: 2.5rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      margin-top: 2rem;
+    }
+
+    .resultado-numero {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #95d5b2;
+      margin-bottom: 0.5rem;
+    }
+
+    .resultado-texto {
+      font-size: 1.3rem;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
+    .resultado-interpretacion {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: normal;
+      line-height: 1.6;
+    }
+
+    /* Footer igual al index */
+    footer {
+      background-color: rgba(29, 53, 43, 0.9);
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .calculator-header h2 {
+        font-size: 2rem;
+      }
+      
+      .form-section {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+      }
+      
+      .calculator-container {
+        padding: 1rem;
+      }
+      
+      .resultado-numero {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* Animaciones suaves */
+    .form-section {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-result {
+      animation: fadeInResult 0.8s ease-in;
+    }
+
+    @keyframes fadeInResult {
+      from { 
+        opacity: 0; 
+        transform: scale(0.9);
+      }
+      to { 
+        opacity: 1; 
+        transform: scale(1);
+      }
     }
   </style>
 </head>
@@ -51,51 +255,179 @@
         <a href="calculadora.html" class="me-3">Calculadora</a>
         <a href="blog.html" class="me-3">Blog</a>
         <a href="recomendaciones.html" class="me-3">Recomendaciones</a>
-        <a href="login.html">Login</a>
+        <a href="comunidad.html" class="me-3" title="Comunidad">
+          <i class="fas fa-users"></i>
+        </a>
+        <a href="login.html" title="Iniciar Sesión">
+          <i class="fas fa-user"></i>
+        </a>
       </nav>
     </div>
   </header>
 
-  <main class="container my-5">
-    <h2 class="mb-4">Calcula tu huella de carbono</h2>
-    <form id="carbonForm">
-      <div class="mb-3">
-        <label for="km">¿Cuántos kilómetros conduces a la semana?</label>
-        <input type="number" class="form-control" id="km" required>
-      </div>
-      <div class="mb-3">
-        <label for="electricidad">Consumo mensual de electricidad (kWh)</label>
-        <input type="number" class="form-control" id="electricidad" required>
-      </div>
-      <div class="mb-3">
-        <label for="carne">¿Cuántas veces consumes carne a la semana?</label>
-        <input type="number" class="form-control" id="carne" required>
-      </div>
-      <button type="submit" class="btn btn-success">Calcular</button>
-    </form>
+  <main class="calculator-container">
+    <div class="calculator-header">
+      <h2>Calculadora de Huella de Carbono</h2>
+      <p>Descubre tu impacto ambiental y comienza tu camino hacia la sostenibilidad</p>
+    </div>
 
-    <div id="resultado" class="result-box mt-4 d-none">
-      <h4>Tu huella estimada es:</h4>
-      <p id="huella"></p>
+    <div class="form-section">
+      <form id="carbonForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group-custom">
+              <label class="input-label">
+                <i class="fas fa-car"></i>
+                Transporte Semanal
+              </label>
+              <div class="position-relative">
+                <input type="number" class="form-control form-control-custom" id="transporte" 
+                       placeholder="Kilómetros que recorres" min="0" step="0.1" required>
+                <span class="input-unit">km</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="input-group-custom">
+              <label class="input-label">
+                <i class="fas fa-bolt"></i>
+                Consumo Eléctrico Mensual
+              </label>
+              <div class="position-relative">
+                <input type="number" class="form-control form-control-custom" id="electricidad" 
+                       placeholder="Consumo en kWh" min="0" step="0.1" required>
+                <span class="input-unit">kWh</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group-custom">
+              <label class="input-label">
+                <i class="fas fa-tint"></i>
+                Consumo de Agua Mensual
+              </label>
+              <div class="position-relative">
+                <input type="number" class="form-control form-control-custom" id="agua" 
+                       placeholder="Metros cúbicos" min="0" step="0.1" required>
+                <span class="input-unit">m³</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="input-group-custom">
+              <label class="input-label">
+                <i class="fas fa-trash-alt"></i>
+                Residuos Semanales
+              </label>
+              <div class="position-relative">
+                <input type="number" class="form-control form-control-custom" id="residuos" 
+                       placeholder="Kilogramos de residuos" min="0" step="0.1" required>
+                <span class="input-unit">kg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-calculate">
+            <i class="fas fa-calculator me-2"></i>
+            Calcular Mi Huella
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div id="resultado" class="resultado-container" style="display:none;">
+      <div class="resultado-numero" id="numeroResultado"></div>
+      <div class="resultado-texto">kg CO₂e al mes</div>
+      <div class="resultado-interpretacion" id="interpretacion"></div>
     </div>
   </main>
 
-  <footer class="text-white text-center py-3">
+  <footer>
     © 2025 RaízZero. Todos los derechos reservados.
   </footer>
 
   <script>
     document.getElementById('carbonForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const km = parseFloat(document.getElementById('km').value);
-      const electricidad = parseFloat(document.getElementById('electricidad').value);
-      const carne = parseFloat(document.getElementById('carne').value);
+      
+      const transporte = parseFloat(document.getElementById('transporte').value) || 0;
+      const electricidad = parseFloat(document.getElementById('electricidad').value) || 0;
+      const agua = parseFloat(document.getElementById('agua').value) || 0;
+      const residuos = parseFloat(document.getElementById('residuos').value) || 0;
 
-      const huella = (km * 0.21) + (electricidad * 0.0005) + (carne * 2.5);
+      // Factores de emisión
+      const factorTransporte = 0.21; // kg CO2e por km
+      const factorElectricidad = 0.5; // kg CO2e por kWh
+      const factorAgua = 0.3; // kg CO2e por m³
+      const factorResiduos = 0.15; // kg CO2e por kg
 
-      document.getElementById('resultado').classList.remove('d-none');
-      document.getElementById('huella').textContent = huella.toFixed(2) + ' kg CO₂e por semana';
+      // Cálculos mensualizados
+      const huellaTransporte = (transporte * factorTransporte * 4.33);
+      const huellaElectricidad = electricidad * factorElectricidad;
+      const huellaAgua = agua * factorAgua;
+      const huellaResiduos = (residuos * factorResiduos * 4.33);
+
+      const totalHuella = (huellaTransporte + huellaElectricidad + huellaAgua + huellaResiduos).toFixed(1);
+
+      // Interpretación del resultado
+      let interpretacion = "";
+      if (totalHuella < 200) {
+        interpretacion = "¡Excelente! Tu huella de carbono es muy baja. Continúa con tus hábitos sostenibles y sigue siendo un ejemplo para otros.";
+      } else if (totalHuella < 400) {
+        interpretacion = "¡Buen trabajo! Tu huella está en un rango moderado. Hay algunas oportunidades para reducirla aún más.";
+      } else if (totalHuella < 600) {
+        interpretacion = "Tu huella es moderada-alta. Te recomendamos explorar nuestras sugerencias para reducir tu impacto ambiental.";
+      } else {
+        interpretacion = "Tu huella de carbono es elevada. Es un gran momento para implementar cambios significativos en tu estilo de vida.";
+      }
+
+      // Mostrar resultado con animación
+      const resultDiv = document.getElementById('resultado');
+      const numeroDiv = document.getElementById('numeroResultado');
+      const interpretacionDiv = document.getElementById('interpretacion');
+      
+      numeroDiv.textContent = totalHuella;
+      interpretacionDiv.textContent = interpretacion;
+      
+      resultDiv.style.display = 'block';
+      resultDiv.classList.add('fade-in-result');
+      
+      // Scroll suave al resultado
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // Animación del contador
+      let counter = 0;
+      const target = parseFloat(totalHuella);
+      const increment = target / 60;
+      const timer = setInterval(() => {
+        counter += increment;
+        if (counter >= target) {
+          counter = target;
+          clearInterval(timer);
+        }
+        numeroDiv.textContent = counter.toFixed(1);
+      }, 25);
+    });
+
+    // Efectos de entrada suaves
+    document.querySelectorAll('.form-control-custom').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.style.transform = 'scale(1.02)';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.style.transform = 'scale(1)';
+      });
     });
   </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
