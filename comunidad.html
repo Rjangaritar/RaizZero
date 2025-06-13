@@ -1,29 +1,545 @@
-<section class="container mt-5">
-  <h2 class="section-title">Comunidad</h2>
-  <p class="text-center">Espacio dispuesto para expresarnos y motivarnos al cambio</p>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="p-3 bg-light rounded">
-        <strong>Cassandra</strong><br>
-        Hey @Mike, let me know what you think of this idea!<br>
-        <button class="btn btn-secondary btn-sm mt-2">Comentar</button>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RaízZero - Comunidad</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('img/Nature.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: rgba(29, 53, 43, 0.9);
+    }
+
+    nav a {
+      color: #ffffff !important;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Contenedor principal */
+    .community-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    /* Header de la comunidad */
+    .community-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 1rem;
+      padding: 3rem;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .community-header h2 {
+      font-size: 2.8rem;
+      font-weight: bold;
+      color: #95d5b2;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .community-header h2 i {
+      margin-right: 1rem;
+      font-size: 2.5rem;
+    }
+
+    .community-header p {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    /* Sección principal de la comunidad */
+    .community-section {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 1rem;
+      padding: 2.5rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    /* Posts de la comunidad */
+    .community-posts {
+      margin-bottom: 3rem;
+    }
+
+    .post-card {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .post-card:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(149, 213, 178, 0.2);
+    }
+
+    .post-author {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .post-author-avatar {
+      width: 50px;
+      height: 50px;
+      background-color: #95d5b2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      font-weight: bold;
+      color: #1b4332;
+      font-size: 1.2rem;
+    }
+
+    .post-author-info h5 {
+      margin: 0;
+      font-weight: bold;
+      color: #95d5b2;
+    }
+
+    .post-author-info small {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .post-content {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    /* Formulario de nuevo post */
+    .new-post-form {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .new-post-form h4 {
+      color: #95d5b2;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .new-post-form h4 i {
+      margin-right: 0.8rem;
+    }
+
+    /* Campos de formulario personalizados */
+    .form-control-custom {
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.8rem;
+      padding: 1rem;
+      font-size: 1rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      transition: all 0.3s ease;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-control-custom:focus {
+      border-color: #95d5b2;
+      box-shadow: 0 0 0 0.2rem rgba(149, 213, 178, 0.25);
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .form-control-custom::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Botones personalizados */
+    .btn-community {
+      background-color: #95d5b2;
+      border: none;
+      color: #1b4332;
+      font-weight: bold;
+      padding: 0.8rem 2rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-community:hover {
+      background-color: #74c69d;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(149, 213, 178, 0.3);
+    }
+
+    .btn-comment {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      font-weight: 500;
+      padding: 0.5rem 1.2rem;
+      border-radius: 0.4rem;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-comment:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      border-color: #95d5b2;
+    }
+
+    /* Footer igual al resto */
+    footer {
+      background-color: rgba(29, 53, 43, 0.9);
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .community-header h2 {
+        font-size: 2.2rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .community-header {
+        padding: 2rem;
+        margin: 1rem;
+      }
+      
+      .community-section {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+      }
+      
+      .community-container {
+        padding: 1rem;
+      }
+      
+      .post-card {
+        padding: 1.5rem;
+      }
+      
+      .post-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Efectos adicionales */
+    .post-card {
+      animation: fadeIn 0.6s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <header class="text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h1 class="h3 m-0">RaízZero</h1>
+      <nav>
+        <a href="index.html" class="me-3">Inicio</a>
+        <a href="calculadora.html" class="me-3">Calculadora</a>
+        <a href="blog.html" class="me-3">Blog</a>
+        <a href="recomendaciones.html" class="me-3">Recomendaciones</a>
+        <a href="comunidad.html" class="me-3" title="Comunidad">
+          <i class="fas fa-users"></i>
+        </a>
+        <a href="login.html" title="Iniciar Sesión">
+          <i class="fas fa-user"></i>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="community-container">
+    <!-- Header de la comunidad -->
+    <div class="community-header">
+      <h2>
+        <i class="fas fa-users"></i>
+        Comunidad RaízZero
+      </h2>
+      <p>Espacio dispuesto para expresarnos y motivarnos al cambio hacia un futuro más sostenible</p>
+    </div>
+
+    <!-- Sección principal -->
+    <div class="community-section">
+      <div class="row">
+        <!-- Posts existentes -->
+        <div class="col-lg-7">
+          <div class="community-posts">
+            <h3 class="mb-4" style="color: #95d5b2;">
+              <i class="fas fa-comments me-2"></i>
+              Conversaciones Recientes
+            </h3>
+            
+            <!-- Post 1 -->
+            <div class="post-card">
+              <div class="post-author">
+                <div class="post-author-avatar">C</div>
+                <div class="post-author-info">
+                  <h5>Cassandra</h5>
+                  <small>Hace 2 horas</small>
+                </div>
+              </div>
+              <div class="post-content">
+                Hey @Mike, let me know what you think of this idea! He estado pensando en crear un huerto comunitario en nuestro barrio. ¿Crees que podríamos conseguir suficientes voluntarios? 🌱
+              </div>
+              <div class="post-actions">
+                <button class="btn btn-comment">
+                  <i class="fas fa-reply me-1"></i>
+                  Comentar
+                </button>
+                <button class="btn btn-comment">
+                  <i class="fas fa-heart me-1"></i>
+                  Me gusta (12)
+                </button>
+              </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="post-card">
+              <div class="post-author">
+                <div class="post-author-avatar">M</div>
+                <div class="post-author-info">
+                  <h5>Mike</h5>
+                  <small>Hace 4 horas</small>
+                </div>
+              </div>
+              <div class="post-content">
+                ¡Acabo de calcular mi huella de carbono y estoy sorprendido! Mi consumo de transporte es más alto de lo que pensaba. ¿Alguien tiene consejos para reducir el uso del auto? 🚗➡️🚲
+              </div>
+              <div class="post-actions">
+                <button class="btn btn-comment">
+                  <i class="fas fa-reply me-1"></i>
+                  Comentar
+                </button>
+                <button class="btn btn-comment">
+                  <i class="fas fa-heart me-1"></i>
+                  Me gusta (8)
+                </button>
+              </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="post-card">
+              <div class="post-author">
+                <div class="post-author-avatar">A</div>
+                <div class="post-author-info">
+                  <h5>Ana</h5>
+                  <small>Hace 1 día</small>
+                </div>
+              </div>
+              <div class="post-content">
+                Compartiendo mi experiencia: llevo 3 meses usando transporte público y ya reduje mi huella en un 40%. ¡Pequeños cambios, grandes resultados! 💚
+              </div>
+              <div class="post-actions">
+                <button class="btn btn-comment">
+                  <i class="fas fa-reply me-1"></i>
+                  Comentar
+                </button>
+                <button class="btn btn-comment">
+                  <i class="fas fa-heart me-1"></i>
+                  Me gusta (25)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario para nuevo post -->
+        <div class="col-lg-5">
+          <div class="new-post-form sticky-top">
+            <h4>
+              <i class="fas fa-pen"></i>
+              Comparte tu Experiencia
+            </h4>
+            <form id="newPostForm">
+              <div class="mb-3">
+                <textarea class="form-control form-control-custom" rows="6" 
+                         placeholder="¿Qué quieres compartir con la comunidad? Cuéntanos sobre tus avances en sostenibilidad, consejos, dudas o motivación..."></textarea>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-community">
+                  <i class="fas fa-paper-plane me-2"></i>
+                  Publicar
+                </button>
+              </div>
+            </form>
+            
+            <!-- Estadísticas de la comunidad -->
+            <div class="mt-4 pt-4" style="border-top: 1px solid rgba(255,255,255,0.2);">
+              <h5 class="mb-3" style="color: #95d5b2;">
+                <i class="fas fa-chart-line me-2"></i>
+                Impacto Comunitario
+              </h5>
+              <div class="row text-center">
+                <div class="col-4">
+                  <div style="color: #95d5b2; font-size: 1.5rem; font-weight: bold;">247</div>
+                  <small>Miembros</small>
+                </div>
+                <div class="col-4">
+                  <div style="color: #95d5b2; font-size: 1.5rem; font-weight: bold;">1.2k</div>
+                  <small>kg CO₂ ahorrados</small>
+                </div>
+                <div class="col-4">
+                  <div style="color: #95d5b2; font-size: 1.5rem; font-weight: bold;">89</div>
+                  <small>Posts este mes</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <form>
-        <textarea class="form-control" rows="4" placeholder="Escribe tu comentario..."></textarea>
-        <button class="btn btn-primary mt-2">Enviar</button>
-      </form>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p class="mb-2">Desarrollado por Ricardo José Angarita Rueda</p>
+      <p class="mb-2">"Cada acción cuenta. Tu huella puede ser el cambio que el planeta necesita."</p>
+      <p class="mb-0">© 2025 RaízZero - Proyecto académico</p>
     </div>
-  </div>
-</section>
+  </footer>
 
-<footer class="bg-dark text-white text-center p-4 mt-5">
-  <p>Desarrollado por Ricardo José Angarita Rueda</p>
-  <p>"Cada acción cuenta. Tu huella puede ser el cambio que el planeta necesita."</p>
-  <p>&copy; 2025 RaiZero - Proyecto académico</p>
-</footer>
+  <script>
+    // Manejo del formulario de nuevo post
+    document.getElementById('newPostForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const textarea = this.querySelector('textarea');
+      const content = textarea.value.trim();
+      
+      if (!content) {
+        alert('Por favor, escribe algo antes de publicar.');
+        return;
+      }
+      
+      // Simular publicación exitosa
+      const button = this.querySelector('button');
+      const originalText = button.innerHTML;
+      
+      button.innerHTML = '<i class="fas fa-check me-2"></i>Publicado!';
+      button.disabled = true;
+      
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.disabled = false;
+        textarea.value = '';
+        
+        // Mostrar mensaje de éxito
+        const successMsg = document.createElement('div');
+        successMsg.className = 'alert alert-success mt-3 fade-in';
+        successMsg.style.backgroundColor = 'rgba(149, 213, 178, 0.2)';
+        successMsg.style.borderColor = '#95d5b2';
+        successMsg.style.color = '#ffffff';
+        successMsg.innerHTML = '<i class="fas fa-check-circle me-2"></i>¡Tu post ha sido publicado exitosamente!';
+        
+        this.appendChild(successMsg);
+        
+        setTimeout(() => {
+          successMsg.remove();
+        }, 3000);
+      }, 1500);
+    });
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    // Efectos de hover en botones de comentario
+    document.querySelectorAll('.btn-comment').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Simular acción de comentario
+        this.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Cargando...';
+        
+        setTimeout(() => {
+          this.innerHTML = '<i class="fas fa-check me-1"></i>¡Gracias!';
+        }, 1000);
+        
+        setTimeout(() => {
+          if (this.textContent.includes('Comentar')) {
+            this.innerHTML = '<i class="fas fa-reply me-1"></i>Comentar';
+          } else {
+            const likes = Math.floor(Math.random() * 5) + parseInt(this.textContent.match(/\d+/)[0]);
+            this.innerHTML = `<i class="fas fa-heart me-1"></i>Me gusta (${likes})`;
+          }
+        }, 2000);
+      });
+    });
+
+    // Efectos de scroll suave
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeIn 0.6s ease-out';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.post-card').forEach(card => {
+      observer.observe(card);
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
